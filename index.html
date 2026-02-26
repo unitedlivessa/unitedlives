@@ -1,278 +1,966 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>United Lives – From One To Many</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>United Lives</title>
+  <meta name="description" content="United Lives — From One To Many" />
+  <style>
+    :root{
+      --bg0:#06040d;
+      --bg1:#0b0820;
+      --card: rgba(255,255,255,.06);
+      --card2: rgba(255,255,255,.085);
+      --stroke: rgba(255,255,255,.12);
+      --stroke2: rgba(255,255,255,.18);
+      --txt:#f6f2ff;
+      --muted: rgba(246,242,255,.68);
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+      --g1:#3c2eff;  /* Electric Indigo */
+      --g2:#7a2bff;  /* Royal Violet */
+      --g3:#d52fff;  /* Magenta Pulse */
+      --g4:#ff4fbb;  /* Social Pink */
+      --g5:#ff7a3d;  /* Sunset Orange */
+      --g6:#ffd26a;  /* Warm Glow */
 
-<style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Inter',sans-serif;
-}
-
-body{
-    background: radial-gradient(circle at 20% 20%, #ff6ec4, transparent 40%),
-                radial-gradient(circle at 80% 30%, #7873f5, transparent 40%),
-                radial-gradient(circle at 50% 80%, #2b86c5, transparent 50%),
-                #0f0c29;
-    color:white;
-    min-height:100vh;
-}
-
-.navbar{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:20px 60px;
-    backdrop-filter: blur(20px);
-    background: rgba(255,255,255,0.05);
-}
-
-.logo{
-    font-weight:700;
-    letter-spacing:2px;
-    font-size:18px;
-}
-
-.nav-links{
-    display:flex;
-    gap:30px;
-    opacity:0.8;
-}
-
-.hero{
-    text-align:center;
-    padding:80px 20px 40px;
-}
-
-.hero h1{
-    font-size:56px;
-    font-weight:700;
-    margin-bottom:20px;
-}
-
-.hero p{
-    font-size:18px;
-    opacity:0.7;
-    margin-bottom:40px;
-}
-
-.core-button{
-    width:160px;
-    height:160px;
-    margin:auto;
-    border-radius:35px;
-    background:linear-gradient(135deg,#ff6ec4,#7873f5,#2b86c5);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-weight:600;
-    cursor:pointer;
-    transition:0.4s;
-}
-
-.core-button.active{
-    box-shadow:0 0 40px #ff6ec4, 0 0 80px #7873f5;
-    transform:scale(1.05);
-}
-
-.status{
-    margin-top:20px;
-    font-size:14px;
-    opacity:0.7;
-}
-
-.dashboard{
-    margin:60px auto;
-    max-width:1200px;
-    display:grid;
-    grid-template-columns:300px 1fr;
-    gap:30px;
-    padding:0 40px;
-}
-
-.sidebar{
-    backdrop-filter:blur(20px);
-    background:rgba(255,255,255,0.05);
-    padding:30px;
-    border-radius:20px;
-}
-
-.sidebar h3{
-    margin-bottom:20px;
-    opacity:0.7;
-}
-
-.platform{
-    display:flex;
-    justify-content:space-between;
-    margin-bottom:15px;
-}
-
-.toggle{
-    width:40px;
-    height:20px;
-    border-radius:20px;
-    background:#444;
-    position:relative;
-    cursor:pointer;
-}
-
-.toggle::after{
-    content:'';
-    position:absolute;
-    width:16px;
-    height:16px;
-    border-radius:50%;
-    background:white;
-    top:2px;
-    left:2px;
-    transition:0.3s;
-}
-
-.toggle.active{
-    background:#2bff88;
-}
-
-.toggle.active::after{
-    left:22px;
-}
-
-.main-panel{
-    backdrop-filter:blur(20px);
-    background:rgba(255,255,255,0.05);
-    padding:30px;
-    border-radius:20px;
-}
-
-.stats{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:20px;
-    margin-top:30px;
-}
-
-.card{
-    background:rgba(255,255,255,0.08);
-    padding:20px;
-    border-radius:15px;
-}
-
-.card h4{
-    opacity:0.6;
-    margin-bottom:10px;
-}
-
-.card span{
-    font-size:28px;
-    font-weight:600;
-}
-
-footer{
-    text-align:center;
-    margin:60px 0 30px;
-    opacity:0.5;
-    font-size:12px;
-}
-</style>
-</head>
-
-<body>
-
-<div class="navbar">
-    <div class="logo">UNITED LIVES</div>
-    <div class="nav-links">
-        <div>Dashboard</div>
-        <div>Streams</div>
-        <div>Analytics</div>
-        <div>Platforms</div>
-    </div>
-</div>
-
-<div class="hero">
-    <h1>From One To Many</h1>
-    <p>Broadcast once. Distribute everywhere. Clean workflow. Single-button control.</p>
-
-    <div class="core-button" id="coreBtn">UL</div>
-    <div class="status" id="status">Stream is OFF</div>
-</div>
-
-<div class="dashboard">
-    
-    <div class="sidebar">
-        <h3>Platforms</h3>
-
-        <div class="platform">
-            <span>YouTube</span>
-            <div class="toggle"></div>
-        </div>
-
-        <div class="platform">
-            <span>Facebook</span>
-            <div class="toggle"></div>
-        </div>
-
-        <div class="platform">
-            <span>Twitch</span>
-            <div class="toggle"></div>
-        </div>
-
-        <div class="platform">
-            <span>TikTok</span>
-            <div class="toggle"></div>
-        </div>
-    </div>
-
-    <div class="main-panel">
-        <h2>United Lives Core</h2>
-
-        <div class="stats">
-            <div class="card">
-                <h4>Live Viewers</h4>
-                <span>1,811</span>
-            </div>
-            <div class="card">
-                <h4>Avg Views / Min</h4>
-                <span>25.4</span>
-            </div>
-            <div class="card">
-                <h4>Engagement Rate</h4>
-                <span>12.5%</span>
-            </div>
-        </div>
-    </div>
-
-</div>
-
-<footer>
-United Lives © 2026 — From One To Many
-</footer>
-
-<script>
-const coreBtn = document.getElementById("coreBtn");
-const status = document.getElementById("status");
-
-coreBtn.addEventListener("click", () => {
-    coreBtn.classList.toggle("active");
-
-    if(coreBtn.classList.contains("active")){
-        status.innerText = "Stream is LIVE";
-    } else {
-        status.innerText = "Stream is OFF";
+      --shadow: 0 18px 55px rgba(0,0,0,.45);
+      --shadow2: 0 28px 90px rgba(0,0,0,.55);
+      --radius: 22px;
+      --radius2: 28px;
+      --max: 1160px;
     }
-});
 
-document.querySelectorAll(".toggle").forEach(toggle=>{
-    toggle.addEventListener("click",()=>{
-        toggle.classList.toggle("active");
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      color:var(--txt);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background:
+        radial-gradient(1200px 800px at 70% 20%, rgba(255,122,61,.22), transparent 60%),
+        radial-gradient(900px 700px at 30% 35%, rgba(122,43,255,.24), transparent 65%),
+        radial-gradient(900px 700px at 55% 80%, rgba(213,47,255,.18), transparent 60%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      overflow-x:hidden;
+    }
+
+    /* subtle stars */
+    .stars{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      opacity:.55;
+      background-image:
+        radial-gradient(1px 1px at 15% 20%, rgba(255,255,255,.9) 50%, transparent 52%),
+        radial-gradient(1px 1px at 55% 18%, rgba(255,255,255,.8) 50%, transparent 52%),
+        radial-gradient(1px 1px at 72% 30%, rgba(255,255,255,.8) 50%, transparent 52%),
+        radial-gradient(1px 1px at 32% 62%, rgba(255,255,255,.75) 50%, transparent 52%),
+        radial-gradient(1px 1px at 80% 70%, rgba(255,255,255,.7) 50%, transparent 52%),
+        radial-gradient(1px 1px at 20% 82%, rgba(255,255,255,.65) 50%, transparent 52%),
+        radial-gradient(1px 1px at 92% 45%, rgba(255,255,255,.7) 50%, transparent 52%);
+      filter: blur(.1px);
+      mix-blend-mode: screen;
+    }
+
+    .wrap{ width:min(var(--max), calc(100% - 44px)); margin:0 auto; }
+
+    /* NAV */
+    header{
+      position:sticky; top:0; z-index:30;
+      backdrop-filter: blur(14px);
+      background: linear-gradient(180deg, rgba(6,4,13,.75), rgba(6,4,13,.35));
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .nav{
+      display:flex; align-items:center; justify-content:space-between;
+      padding: 16px 0;
+      gap:14px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--txt);
+      font-weight:700; letter-spacing:.14em;
+    }
+    .brand .mini{
+      width:14px; height:14px; border-radius:6px;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.18), transparent 55%),
+                  linear-gradient(135deg, var(--g1), var(--g3), var(--g5));
+      box-shadow: 0 0 24px rgba(213,47,255,.22);
+    }
+    nav ul{
+      display:flex; gap:18px; list-style:none; padding:0; margin:0; align-items:center;
+    }
+    nav a{
+      color:rgba(246,242,255,.78); text-decoration:none; font-size:14px;
+      padding:10px 12px; border-radius:14px;
+      border: 1px solid transparent;
+    }
+    nav a:hover{ color:var(--txt); border-color: rgba(255,255,255,.08); background: rgba(255,255,255,.04); }
+
+    .navActions{ display:flex; gap:10px; align-items:center; }
+    .btn{
+      appearance:none; border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color:var(--txt); padding:10px 14px; border-radius:14px;
+      font-weight:600; font-size:14px; cursor:pointer;
+      transition: transform .15s ease, background .15s ease, border-color .15s ease;
+    }
+    .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.2); }
+    .btn.primary{
+      border-color: rgba(255,255,255,.18);
+      background: linear-gradient(135deg, rgba(60,46,255,.35), rgba(213,47,255,.32), rgba(255,122,61,.25));
+      box-shadow: 0 16px 45px rgba(0,0,0,.38);
+    }
+
+    /* HERO */
+    .hero{
+      padding: 54px 0 18px;
+      position:relative;
+    }
+    .heroGrid{
+      display:grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 28px;
+      align-items:stretch;
+    }
+    .panel{
+      border-radius: var(--radius2);
+      background: linear-gradient(180deg, rgba(255,255,255,.075), rgba(255,255,255,.045));
+      border: 1px solid rgba(255,255,255,.12);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+    .panel::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(900px 420px at 20% 15%, rgba(122,43,255,.22), transparent 60%),
+                  radial-gradient(850px 380px at 70% 10%, rgba(255,122,61,.18), transparent 60%),
+                  radial-gradient(850px 520px at 50% 90%, rgba(213,47,255,.16), transparent 60%);
+      filter: blur(0px);
+      pointer-events:none;
+    }
+
+    .heroLeft{ padding: 26px 26px 24px; }
+    .badge{
+      display:inline-flex; align-items:center; gap:10px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.18);
+      color: rgba(246,242,255,.82);
+      font-size:13px;
+      position:relative;
+      z-index:2;
+    }
+    .dot{
+      width:10px; height:10px; border-radius:99px;
+      background: linear-gradient(135deg, var(--g2), var(--g4), var(--g6));
+      box-shadow: 0 0 18px rgba(255,79,187,.35);
+    }
+
+    h1{
+      margin: 18px 0 12px;
+      font-size: clamp(36px, 5vw, 54px);
+      line-height: 1.02;
+      letter-spacing:-.02em;
+      position:relative;
+      z-index:2;
+    }
+    p{
+      margin:0;
+      color: var(--muted);
+      line-height: 1.65;
+      font-size: 15px;
+      position:relative;
+      z-index:2;
+      max-width: 58ch;
+    }
+
+    .ctaRow{
+      margin-top: 18px;
+      display:flex; gap:12px; flex-wrap:wrap;
+      position:relative; z-index:2;
+      align-items:center;
+    }
+
+    .platformRow{
+      margin-top: 18px;
+      display:flex; gap:10px; flex-wrap:wrap;
+      align-items:center;
+      position:relative; z-index:2;
+    }
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:10px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.16);
+      color: rgba(246,242,255,.82);
+      font-size: 13px;
+    }
+    .pill svg{ opacity:.9; }
+
+    /* RIGHT: LIVE CARD */
+    .heroRight{ padding: 18px; display:flex; flex-direction:column; gap:14px; }
+    .topBar{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px;
+      padding: 12px 14px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.16);
+      position:relative; z-index:2;
+    }
+    .user{
+      display:flex; align-items:center; gap:10px;
+      color: rgba(246,242,255,.88);
+      font-weight:600;
+      font-size: 14px;
+    }
+    .user .avatar{
+      width:28px; height:28px; border-radius:12px;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.22), transparent 55%),
+                  linear-gradient(135deg, var(--g1), var(--g3), var(--g5));
+      border: 1px solid rgba(255,255,255,.12);
+      box-shadow: 0 0 26px rgba(122,43,255,.22);
+    }
+    .status{
+      display:flex; align-items:center; gap:10px;
+      font-size: 13px;
+      color: rgba(246,242,255,.78);
+    }
+    .led{
+      width:10px; height:10px; border-radius:99px;
+      background: rgba(255,255,255,.25);
+      box-shadow:none;
+      transition: background .2s ease, box-shadow .25s ease;
+    }
+    .timer{
+      font-variant-numeric: tabular-nums;
+      opacity:.9;
+    }
+
+    .liveCard{
+      flex:1;
+      padding: 16px;
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: linear-gradient(180deg, rgba(0,0,0,.16), rgba(0,0,0,.10));
+      position:relative; z-index:2;
+      overflow:hidden;
+    }
+    .liveCard::after{
+      content:"";
+      position:absolute; inset:-40px;
+      background:
+        radial-gradient(480px 280px at 35% 40%, rgba(122,43,255,.22), transparent 65%),
+        radial-gradient(520px 300px at 80% 30%, rgba(255,122,61,.18), transparent 70%),
+        radial-gradient(620px 340px at 55% 90%, rgba(213,47,255,.14), transparent 70%);
+      filter: blur(2px);
+      pointer-events:none;
+    }
+
+    .liveGrid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      position:relative; z-index:2;
+    }
+
+    .logoButtonWrap{
+      display:flex; align-items:center; justify-content:center;
+      padding: 10px 0 2px;
+    }
+
+    /* SINGLE LOGO BUTTON */
+    .logoBtn{
+      width: 112px; height: 112px;
+      border-radius: 32px;
+      border: 1px solid rgba(255,255,255,.16);
+      background:
+        radial-gradient(circle at 30% 30%, rgba(255,255,255,.20), transparent 55%),
+        linear-gradient(135deg, rgba(60,46,255,.86), rgba(213,47,255,.82), rgba(255,122,61,.78), rgba(255,210,106,.62));
+      box-shadow: 0 22px 70px rgba(0,0,0,.55);
+      cursor:pointer;
+      position:relative;
+      transition: transform .12s ease, filter .22s ease, box-shadow .22s ease, opacity .22s ease;
+      outline:none;
+      display:grid;
+      place-items:center;
+      user-select:none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* inner swirl mark (pure CSS) */
+    .logoBtn .swirl{
+      width: 58px; height: 58px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 35% 35%, rgba(0,0,0,.08), rgba(0,0,0,.42) 55%, rgba(0,0,0,.62));
+      position:relative;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.08);
+      opacity:.92;
+    }
+    .logoBtn .swirl:before{
+      content:"";
+      position:absolute; inset:-12px;
+      border-radius: 999px;
+      background:
+        conic-gradient(from 210deg,
+          rgba(255,255,255,0) 0deg,
+          rgba(255,255,255,.12) 60deg,
+          rgba(255,255,255,0) 120deg,
+          rgba(255,255,255,.08) 220deg,
+          rgba(255,255,255,0) 360deg);
+      filter: blur(0.3px);
+      opacity:.85;
+      mix-blend-mode: screen;
+    }
+
+    .logoBtn:active{ transform: scale(.98); }
+
+    /* OFF state (default): "dark / quiet" */
+    .isOff .logoBtn{
+      filter: saturate(.55) brightness(.78);
+      opacity:.92;
+      box-shadow: 0 16px 48px rgba(0,0,0,.58);
+    }
+
+    /* ON state: glow + aura */
+    .isOn .logoBtn{
+      filter: saturate(1.15) brightness(1.05);
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,.18),
+        0 24px 85px rgba(213,47,255,.32),
+        0 18px 65px rgba(255,122,61,.22),
+        0 10px 35px rgba(60,46,255,.22);
+    }
+    .aura{
+      position:absolute; inset:-24px;
+      border-radius: 46px;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(122,43,255,.22), transparent 60%),
+        radial-gradient(circle at 70% 70%, rgba(255,122,61,.18), transparent 60%),
+        radial-gradient(circle at 55% 45%, rgba(213,47,255,.20), transparent 60%);
+      filter: blur(10px);
+      opacity:0;
+      transition: opacity .25s ease;
+      pointer-events:none;
+    }
+    .isOn .aura{ opacity:1; }
+
+    .liveMetaRow{
+      display:flex; gap:12px; flex-wrap:wrap;
+      justify-content:space-between;
+      align-items:center;
+      padding: 10px 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.14);
+    }
+    .meta{
+      display:flex; flex-direction:column; gap:4px;
+      min-width: 180px;
+    }
+    .meta .k{ font-size: 12px; color: rgba(246,242,255,.66); }
+    .meta .v{ font-size: 14px; color: rgba(246,242,255,.88); font-weight:650; }
+
+    .miniBtn{
+      padding:10px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color: rgba(246,242,255,.9);
+      font-weight:700;
+      cursor:pointer;
+      transition: transform .15s ease, background .15s ease;
+      white-space:nowrap;
+    }
+    .miniBtn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.09); }
+
+    .hint{
+      margin-top: 8px;
+      font-size: 12.5px;
+      color: rgba(246,242,255,.66);
+      text-align:center;
+    }
+
+    /* SECTIONS */
+    section{
+      padding: 18px 0 56px;
+    }
+    .sectionTitle{
+      display:flex; align-items:flex-end; justify-content:space-between;
+      gap:14px;
+      margin: 22px 0 14px;
+    }
+    .sectionTitle h2{
+      margin:0;
+      font-size: 18px;
+      letter-spacing:-.01em;
+    }
+    .cards{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    .card{
+      padding: 16px 16px 15px;
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.045));
+      border: 1px solid rgba(255,255,255,.12);
+      box-shadow: var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+    .card::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(520px 240px at 20% 10%, rgba(122,43,255,.18), transparent 65%),
+                  radial-gradient(520px 240px at 80% 20%, rgba(255,122,61,.12), transparent 65%);
+      opacity:.75;
+      pointer-events:none;
+    }
+    .card .head{
+      display:flex; align-items:center; gap:10px;
+      position:relative; z-index:2;
+      margin-bottom: 10px;
+    }
+    .ico{
+      width:34px; height:34px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.18);
+      display:grid; place-items:center;
+    }
+    .card h3{
+      margin:0;
+      font-size: 14px;
+      letter-spacing:.01em;
+    }
+    .card p{
+      margin:0;
+      font-size: 13.5px;
+      color: rgba(246,242,255,.68);
+      position:relative; z-index:2;
+    }
+
+    footer{
+      padding: 22px 0 32px;
+      border-top: 1px solid rgba(255,255,255,.07);
+      color: rgba(246,242,255,.6);
+      font-size: 12.5px;
+    }
+
+    /* MODAL */
+    .modalBackdrop{
+      position:fixed; inset:0;
+      background: rgba(0,0,0,.55);
+      backdrop-filter: blur(10px);
+      display:none;
+      align-items:center; justify-content:center;
+      z-index:50;
+      padding: 20px;
+    }
+    .modalBackdrop.open{ display:flex; }
+    .modal{
+      width:min(640px, 100%);
+      border-radius: 26px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: linear-gradient(180deg, rgba(255,255,255,.085), rgba(255,255,255,.045));
+      box-shadow: var(--shadow2);
+      overflow:hidden;
+      position:relative;
+    }
+    .modal::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(520px 280px at 25% 20%, rgba(122,43,255,.22), transparent 65%),
+        radial-gradient(520px 280px at 75% 20%, rgba(255,122,61,.18), transparent 65%),
+        radial-gradient(620px 300px at 50% 90%, rgba(213,47,255,.16), transparent 70%);
+      pointer-events:none;
+    }
+    .modalHeader{
+      display:flex; align-items:center; justify-content:space-between;
+      padding: 16px 16px 12px;
+      position:relative; z-index:2;
+    }
+    .modalHeader h3{
+      margin:0;
+      font-size: 15px;
+      letter-spacing:-.01em;
+    }
+    .closeBtn{
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.18);
+      color: rgba(246,242,255,.9);
+      border-radius: 14px;
+      padding: 8px 10px;
+      cursor:pointer;
+      font-weight:800;
+    }
+    .modalBody{
+      padding: 0 16px 16px;
+      position:relative; z-index:2;
+    }
+    .modalNote{
+      margin: 0 0 12px;
+      color: rgba(246,242,255,.70);
+      font-size: 13px;
+      line-height:1.55;
+    }
+    .platformGrid{
+      display:grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap:10px;
+    }
+    .oauthBtn{
+      display:flex; align-items:center; gap:12px;
+      width:100%;
+      padding: 12px 12px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.16);
+      color: rgba(246,242,255,.92);
+      cursor:pointer;
+      font-weight:700;
+      transition: transform .15s ease, background .15s ease, border-color .15s ease;
+      text-align:left;
+    }
+    .oauthBtn:hover{
+      transform: translateY(-1px);
+      background: rgba(0,0,0,.22);
+      border-color: rgba(255,255,255,.22);
+    }
+    .oauthIco{
+      width:34px; height:34px; border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.14), transparent 55%),
+                  linear-gradient(135deg, rgba(60,46,255,.35), rgba(213,47,255,.30), rgba(255,122,61,.22));
+      display:grid; place-items:center;
+      flex: 0 0 34px;
+    }
+    .oauthSub{
+      font-size: 12px;
+      font-weight:600;
+      color: rgba(246,242,255,.62);
+      margin-left:auto;
+      padding-left: 10px;
+    }
+    .modalFooter{
+      padding: 12px 16px 16px;
+      border-top: 1px solid rgba(255,255,255,.08);
+      color: rgba(246,242,255,.62);
+      font-size: 12.5px;
+      position:relative; z-index:2;
+      display:flex; gap:10px; flex-wrap:wrap;
+      align-items:center;
+    }
+    .lock{
+      width: 14px; height: 14px; display:inline-block;
+      border-radius: 4px;
+      background: rgba(255,255,255,.14);
+      position:relative;
+      margin-right:6px;
+    }
+    .lock:before{
+      content:"";
+      position:absolute;
+      width: 8px; height: 6px;
+      border: 2px solid rgba(255,255,255,.7);
+      border-bottom:none;
+      border-radius: 6px 6px 0 0;
+      left:50%; top:-6px; transform:translateX(-50%);
+      opacity:.55;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 980px){
+      .heroGrid{ grid-template-columns: 1fr; }
+      nav ul{ display:none; }
+      .cards{ grid-template-columns: 1fr; }
+      .platformGrid{ grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="stars"></div>
+
+  <header>
+    <div class="wrap">
+      <div class="nav">
+        <a class="brand" href="#top" aria-label="United Lives">
+          <span class="mini"></span>
+          <span>UNITED&nbsp;LIVES</span>
+        </a>
+
+        <nav aria-label="Primary">
+          <ul>
+            <li><a href="#how">How it works</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#about">About</a></li>
+          </ul>
+        </nav>
+
+        <div class="navActions">
+          <button class="btn" id="signInBtn" type="button">Sign In</button>
+          <button class="btn primary" id="connectBtnTop" type="button">Connect Platforms</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <div class="wrap hero">
+      <div class="heroGrid">
+        <!-- LEFT -->
+        <div class="panel heroLeft">
+          <div class="badge">
+            <span class="dot"></span>
+            <span>Saudi-ready · OAuth-friendly · Unified workflow</span>
+          </div>
+
+          <h1>From One To Many</h1>
+          <p>
+            United Lives builds a unified distribution layer: broadcast once, reach multiple platforms —
+            with centralized control, session status, and a clean experience that feels friendly and unique.
+          </p>
+
+          <div class="ctaRow">
+            <button class="btn primary" id="connectBtnHero" type="button">Connect Platforms</button>
+            <button class="btn" id="scrollHow" type="button">View How It Works</button>
+          </div>
+
+          <div class="platformRow" aria-label="Supported platforms (examples)">
+            <span class="pill" title="YouTube">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M21.6 7.3c.3 1.6.3 5 .3 5s0 3.4-.3 5c-.2 1-1 1.8-2 2-1.7.3-7.6.3-7.6.3s-6 0-7.6-.3c-1-.2-1.8-1-2-2-.3-1.6-.3-5-.3-5s0-3.4.3-5c.2-1 1-1.8 2-2C6 5 12 5 12 5s5.9 0 7.6.3c1 .2 1.8 1 2 2Z" stroke="rgba(246,242,255,.75)" stroke-width="1.4"/><path d="M10.2 15.3V9.2l5.2 3-5.2 3Z" fill="rgba(246,242,255,.78)"/></svg>
+              YouTube
+            </span>
+            <span class="pill" title="TikTok">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M14 3c.6 3.3 2.9 5.5 6 6v3c-2.2 0-4.2-.7-6-2v6.2c0 3.3-2.7 5.8-6 5.8s-6-2.5-6-5.8S4.7 10.4 8 10.4c.5 0 1 .1 1.5.2v3.2c-.5-.2-1-.4-1.5-.4-1.7 0-3 1.3-3 2.8S6.3 19 8 19s3-1.3 3-2.8V3h3Z" fill="rgba(246,242,255,.78)"/></svg>
+              TikTok
+            </span>
+            <span class="pill" title="Twitch">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 3h17v11l-5 5h-4l-2 2H8v-2H5V6L4 3Zm3 4v10h3v2l2-2h5l3-3V7H7Zm4 2h2v5h-2V9Zm5 0h2v5h-2V9Z" fill="rgba(246,242,255,.78)"/></svg>
+              Twitch
+            </span>
+            <span class="pill" title="X">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M18.8 3H21l-7.7 8.8L22 21h-7l-5.5-6.4L4 21H2l8.4-9.6L2 3h7.2l5 5.8L18.8 3Z" fill="rgba(246,242,255,.78)"/></svg>
+              X
+            </span>
+          </div>
+        </div>
+
+        <!-- RIGHT -->
+        <div class="panel heroRight">
+          <div class="topBar">
+            <div class="user">
+              <span class="avatar"></span>
+              <span>Admin</span>
+            </div>
+            <div class="status">
+              <span class="led" id="led"></span>
+              <span id="stateText">Stream is OFF</span>
+              <span class="timer" id="timer">00:00:00</span>
+            </div>
+          </div>
+
+          <div class="liveCard">
+            <div class="liveGrid" id="liveContainer">
+              <div class="logoButtonWrap">
+                <div class="aura" id="aura"></div>
+                <button class="logoBtn" id="logoBtn" type="button" aria-label="Toggle stream">
+                  <span class="swirl" aria-hidden="true"></span>
+                </button>
+              </div>
+
+              <div class="liveMetaRow">
+                <div class="meta">
+                  <div class="k">Single-button workflow</div>
+                  <div class="v">Tap the logo to start. Tap again to stop.</div>
+                </div>
+                <button class="miniBtn" id="connectBtnMini" type="button">Connect Platforms</button>
+              </div>
+
+              <div class="hint" id="hint">
+                When ON: the logo glows (you’re live). When OFF: it becomes quiet/dark.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FEATURES -->
+    <section id="features">
+      <div class="wrap">
+        <div class="sectionTitle">
+          <h2>Key Capabilities</h2>
+        </div>
+
+        <div class="cards">
+          <div class="card">
+            <div class="head">
+              <div class="ico">⚡️</div>
+              <h3>Broadcast Once</h3>
+            </div>
+            <p>One control surface to start/stop the session with a clear live status.</p>
+          </div>
+
+          <div class="card">
+            <div class="head">
+              <div class="ico">🧩</div>
+              <h3>Connect Platforms</h3>
+            </div>
+            <p>OAuth flow: connect your social platforms without storing passwords.</p>
+          </div>
+
+          <div class="card">
+            <div class="head">
+              <div class="ico">📈</div>
+              <h3>Visibility</h3>
+            </div>
+            <p>Session metrics, engagement signals, and performance visibility in one place.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW -->
+    <section id="how">
+      <div class="wrap">
+        <div class="sectionTitle">
+          <h2>How it works</h2>
+        </div>
+
+        <div class="cards">
+          <div class="card">
+            <div class="head">
+              <div class="ico">1</div>
+              <h3>Connect</h3>
+            </div>
+            <p>Choose platforms and connect via OAuth. You can disconnect anytime.</p>
+          </div>
+
+          <div class="card">
+            <div class="head">
+              <div class="ico">2</div>
+              <h3>Go Live</h3>
+            </div>
+            <p>Tap the logo once to start. The button glows while streaming is ON.</p>
+          </div>
+
+          <div class="card">
+            <div class="head">
+              <div class="ico">3</div>
+              <h3>Control</h3>
+            </div>
+            <p>Tap again to stop. The interface returns to a calm “OFF” state instantly.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <div class="wrap">
+        <div class="sectionTitle">
+          <h2>About</h2>
+        </div>
+        <div class="card">
+          <div class="head">
+            <div class="ico">UL</div>
+            <h3>United Lives</h3>
+          </div>
+          <p>
+            A GCC-focused concept for unified live distribution. The goal is a clean, friendly,
+            investor-ready experience that demonstrates the workflow clearly in the first 5 seconds.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="wrap">
+        © <span id="year"></span> United Lives — From One To Many
+      </div>
+    </footer>
+  </main>
+
+  <!-- MODAL -->
+  <div class="modalBackdrop" id="modal">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modalHeader">
+        <h3 id="modalTitle">Connect Your Platforms</h3>
+        <button class="closeBtn" id="closeModal" type="button">✕</button>
+      </div>
+
+      <div class="modalBody">
+        <p class="modalNote">
+          This is a UI demo. Later you will connect via OAuth to each platform.
+          (No passwords stored — disconnect anytime)
+        </p>
+
+        <div class="platformGrid">
+          <button class="oauthBtn" type="button">
+            <span class="oauthIco">G</span>
+            Continue with Google
+            <span class="oauthSub">OAuth</span>
+          </button>
+
+          <button class="oauthBtn" type="button">
+            <span class="oauthIco">YT</span>
+            Continue with YouTube
+            <span class="oauthSub">OAuth</span>
+          </button>
+
+          <button class="oauthBtn" type="button">
+            <span class="oauthIco">TT</span>
+            Continue with TikTok
+            <span class="oauthSub">OAuth</span>
+          </button>
+
+          <button class="oauthBtn" type="button">
+            <span class="oauthIco">TW</span>
+            Continue with Twitch
+            <span class="oauthSub">OAuth</span>
+          </button>
+
+          <button class="oauthBtn" type="button">
+            <span class="oauthIco">X</span>
+            Continue with X
+            <span class="oauthSub">OAuth</span>
+          </button>
+
+          <button class="oauthBtn" type="button">
+            <span class="oauthIco">FB</span>
+            Continue with Facebook
+            <span class="oauthSub">OAuth</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="modalFooter">
+        <span><span class="lock"></span>OAuth secure</span>
+        <span>·</span>
+        <span>No passwords stored</span>
+        <span>·</span>
+        <span>Disconnect anytime</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // --- Helpers
+    const $ = (id) => document.getElementById(id);
+
+    // Elements
+    const liveContainer = $("liveContainer");
+    const logoBtn = $("logoBtn");
+    const led = $("led");
+    const stateText = $("stateText");
+    const timerEl = $("timer");
+    const yearEl = $("year");
+
+    const modal = $("modal");
+    const closeModal = $("closeModal");
+
+    const connectButtons = [
+      $("connectBtnTop"),
+      $("connectBtnHero"),
+      $("connectBtnMini")
+    ];
+
+    const signInBtn = $("signInBtn");
+    const scrollHow = $("scrollHow");
+
+    // State
+    let isOn = false;
+    let t0 = 0;
+    let rafId = null;
+
+    function pad2(n){ return String(n).padStart(2, "0"); }
+    function fmtTime(ms){
+      const s = Math.max(0, Math.floor(ms/1000));
+      const hh = Math.floor(s/3600);
+      const mm = Math.floor((s%3600)/60);
+      const ss = s%60;
+      return `${pad2(hh)}:${pad2(mm)}:${pad2(ss)}`;
+    }
+
+    function setUI(on){
+      isOn = on;
+
+      // container class controls glow/off look
+      liveContainer.classList.toggle("isOn", on);
+      liveContainer.classList.toggle("isOff", !on);
+
+      // LED
+      if(on){
+        led.style.background = "linear-gradient(135deg, rgba(60,46,255,1), rgba(213,47,255,1), rgba(255,122,61,1))";
+        led.style.boxShadow = "0 0 16px rgba(213,47,255,.45), 0 0 28px rgba(255,122,61,.22)";
+        stateText.textContent = "Stream is ON";
+      } else {
+        led.style.background = "rgba(255,255,255,.25)";
+        led.style.boxShadow = "none";
+        stateText.textContent = "Stream is OFF";
+      }
+    }
+
+    function tick(){
+      if(!isOn) return;
+      const ms = performance.now() - t0;
+      timerEl.textContent = fmtTime(ms);
+      rafId = requestAnimationFrame(tick);
+    }
+
+    function start(){
+      if(isOn) return;
+      setUI(true);
+      t0 = performance.now();
+      if(rafId) cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(tick);
+    }
+
+    function stop(){
+      if(!isOn) return;
+      setUI(false);
+      if(rafId) cancelAnimationFrame(rafId);
+      rafId = null;
+      timerEl.textContent = "00:00:00";
+    }
+
+    // Single-button workflow (logo toggles)
+    logoBtn.addEventListener("click", () => {
+      if(isOn) stop(); else start();
     });
-});
-</script>
 
+    // Modal
+    function openModal(){
+      modal.classList.add("open");
+    }
+    function hideModal(){
+      modal.classList.remove("open");
+    }
+    connectButtons.forEach(btn => btn && btn.addEventListener("click", openModal));
+    closeModal.addEventListener("click", hideModal);
+    modal.addEventListener("click", (e) => { if(e.target === modal) hideModal(); });
+    window.addEventListener("keydown", (e) => { if(e.key === "Escape") hideModal(); });
+
+    // Sign-in (demo)
+    signInBtn.addEventListener("click", () => {
+      openModal(); // in this demo, sign-in uses same connect modal idea
+    });
+
+    // Scroll to how
+    scrollHow.addEventListener("click", () => {
+      const el = document.querySelector("#how");
+      if(el) el.scrollIntoView({ behavior:"smooth", block:"start" });
+    });
+
+    // Init
+    yearEl.textContent = new Date().getFullYear();
+    setUI(false);
+  </script>
 </body>
 </html>
