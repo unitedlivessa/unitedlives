@@ -1,348 +1,682 @@
-<!doctype html>
-<html lang="ar" dir="rtl">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>United Lives — From One To Many</title>
-  <meta name="description" content="منصة سعودية للبث المباشر متعدد المنصات من مصدر واحد مع لوحة تحكم موحدة وتحليلات وميزات ذكاء اصطناعي." />
+
   <style>
     :root{
-      --bg:#0b1020;
-      --card:#0f1733;
-      --muted:rgba(255,255,255,.7);
-      --line:rgba(255,255,255,.12);
-      --accent1:#7c3aed;
-      --accent2:#22d3ee;
-      --accent3:#f97316;
-      --white:#fff;
-      --shadow: 0 20px 60px rgba(0,0,0,.55);
-      --radius:18px;
-      --max:1100px;
-      --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans Arabic", "Noto Kufi Arabic", Tahoma;
+      --bg1:#070815;
+      --bg2:#140a23;
+      --glass: rgba(255,255,255,.06);
+      --stroke: rgba(255,255,255,.10);
+      --txt: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.66);
+
+      --grad1: #ff3dbb;
+      --grad2: #8a4dff;
+      --grad3: #35b6ff;
+      --grad4: #ffb84b;
+
+      --shadow: 0 18px 60px rgba(0,0,0,.55);
+      --radius: 24px;
     }
+
     *{box-sizing:border-box}
+    html,body{height:100%}
     body{
       margin:0;
-      font-family:var(--font);
-      color:var(--white);
+      color:var(--txt);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      overflow-x:hidden;
+
       background:
-        radial-gradient(1000px 700px at 15% 20%, rgba(124,58,237,.35), transparent 55%),
-        radial-gradient(900px 650px at 85% 25%, rgba(34,211,238,.25), transparent 55%),
-        radial-gradient(800px 600px at 55% 90%, rgba(249,115,22,.18), transparent 55%),
-        linear-gradient(180deg, #070a14 0%, var(--bg) 55%, #060914 100%);
-      min-height:100vh;
+        radial-gradient(1200px 800px at 78% 20%, rgba(255,115,0,.18), transparent 60%),
+        radial-gradient(900px 700px at 20% 30%, rgba(140,60,255,.22), transparent 60%),
+        radial-gradient(900px 900px at 55% 85%, rgba(55,200,255,.18), transparent 55%),
+        linear-gradient(180deg, var(--bg1), var(--bg2));
     }
-    a{color:inherit; text-decoration:none}
-    .wrap{max-width:var(--max); margin:0 auto; padding:28px 18px 70px}
-    .topbar{
+
+    /* Subtle star noise */
+    body:before{
+      content:"";
+      position:fixed; inset:0;
+      background-image:
+        radial-gradient(2px 2px at 20% 30%, rgba(255,255,255,.28) 40%, transparent 42%),
+        radial-gradient(1px 1px at 75% 18%, rgba(255,255,255,.22) 40%, transparent 42%),
+        radial-gradient(1px 1px at 46% 62%, rgba(255,255,255,.18) 40%, transparent 42%),
+        radial-gradient(2px 2px at 86% 72%, rgba(255,255,255,.14) 40%, transparent 42%),
+        radial-gradient(1px 1px at 10% 82%, rgba(255,255,255,.12) 40%, transparent 42%);
+      opacity:.35;
+      pointer-events:none;
+      mix-blend-mode:screen;
+    }
+
+    .wrap{max-width:1100px; margin:0 auto; padding:22px 18px 80px;}
+    .nav{
       display:flex; align-items:center; justify-content:space-between;
-      gap:12px; padding:14px 16px;
-      border:1px solid var(--line);
-      border-radius:999px;
-      background:rgba(15,23,51,.55);
-      backdrop-filter: blur(10px);
+      padding:14px 16px;
+      border:1px solid var(--stroke);
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border-radius: 18px;
+      backdrop-filter: blur(14px);
+      box-shadow: 0 12px 40px rgba(0,0,0,.35);
+      position:sticky; top:14px; z-index:50;
     }
-    .brand{display:flex; align-items:center; gap:10px}
-    .logo{
-      width:34px; height:34px; border-radius:12px;
-      background: conic-gradient(from 210deg, var(--accent1), var(--accent2), var(--accent3), var(--accent1));
-      box-shadow: 0 10px 25px rgba(0,0,0,.35);
-      position:relative;
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      font-weight:700; letter-spacing:.08em;
+      text-transform:uppercase; font-size:13px;
+      color:rgba(255,255,255,.86);
     }
-    .logo:after{
-      content:""; position:absolute; inset:9px;
+    .brand .dot{
+      width:10px; height:10px; border-radius:999px;
+      background: linear-gradient(135deg, var(--grad1), var(--grad2), var(--grad3), var(--grad4));
+      box-shadow: 0 0 18px rgba(255,61,187,.35);
+    }
+    .nav a{
+      color:rgba(255,255,255,.68);
+      text-decoration:none;
+      font-size:13px;
+      padding:8px 10px;
       border-radius:10px;
-      background:rgba(11,16,32,.85);
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,.10);
     }
-    .brand b{letter-spacing:.3px}
-    .tag{font-size:12px; color:var(--muted)}
-    .pill{
-      font-size:12px;
-      border:1px solid var(--line);
-      padding:8px 12px;
-      border-radius:999px;
-      color:var(--muted);
-      background:rgba(255,255,255,.04);
-      white-space:nowrap;
+    .nav a:hover{background:rgba(255,255,255,.05); color:rgba(255,255,255,.9)}
+    .nav .right{display:flex; align-items:center; gap:10px}
+    .btn{
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.06);
+      color:rgba(255,255,255,.88);
+      padding:10px 14px;
+      border-radius: 14px;
+      font-size:13px;
+      cursor:pointer;
+      transition:.2s;
+      backdrop-filter: blur(12px);
+    }
+    .btn:hover{transform: translateY(-1px); background: rgba(255,255,255,.08)}
+    .btn.primary{
+      border:none;
+      background: linear-gradient(135deg, rgba(255,61,187,.95), rgba(138,77,255,.95), rgba(53,182,255,.95));
+      box-shadow: 0 12px 40px rgba(138,77,255,.25);
     }
 
     .hero{
-      margin-top:22px;
+      margin-top:38px;
       display:grid;
-      grid-template-columns: 1.2fr .8fr;
-      gap:18px;
-      align-items:stretch;
+      grid-template-columns: 1.05fr .95fr;
+      gap:26px;
+      align-items:center;
     }
-    @media (max-width: 920px){
-      .hero{grid-template-columns:1fr}
+    @media (max-width: 900px){
+      .hero{grid-template-columns:1fr; gap:18px}
+      .nav{position:relative; top:auto}
     }
+
     .card{
-      border:1px solid var(--line);
-      background:rgba(15,23,51,.55);
-      backdrop-filter: blur(12px);
-      border-radius:var(--radius);
+      border:1px solid var(--stroke);
+      background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
+      border-radius: var(--radius);
+      padding: 22px;
+      backdrop-filter: blur(16px);
       box-shadow: var(--shadow);
+    }
+
+    .logoBlock{
+      display:flex;
+      flex-direction:column;
+      align-items:flex-start;
+      gap:14px;
+    }
+
+    .logoMark{
+      width:74px; height:74px;
+      border-radius: 22px;
+      background: linear-gradient(135deg, rgba(255,61,187,.9), rgba(138,77,255,.9), rgba(53,182,255,.9), rgba(255,184,75,.9));
+      box-shadow: 0 18px 60px rgba(0,0,0,.35);
+      position:relative;
       overflow:hidden;
     }
-    .card-inner{padding:26px 22px}
-    .kicker{
-      display:inline-flex; gap:8px; align-items:center;
-      font-size:12px; color:rgba(255,255,255,.8);
-      border:1px solid var(--line);
-      background:rgba(255,255,255,.04);
-      padding:8px 12px; border-radius:999px;
+    .logoMark:before{
+      content:"";
+      position:absolute; inset:-30%;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.30), transparent 60%);
+      transform: rotate(20deg);
     }
-    .dot{
-      width:8px; height:8px; border-radius:99px;
-      background:linear-gradient(90deg,var(--accent2),var(--accent1));
-      box-shadow:0 0 0 4px rgba(34,211,238,.12);
-    }
-    h1{
-      margin:14px 0 10px;
+
+    .title{
       font-size:44px;
       line-height:1.05;
-      letter-spacing:-.5px;
+      margin:0;
+      letter-spacing:-.02em;
     }
-    @media (max-width:520px){
-      h1{font-size:36px}
-    }
-    .sub{
-      margin:0 0 18px;
+    .subtitle{
+      margin:0;
       color:var(--muted);
-      font-size:16px;
-      line-height:1.7;
+      font-size:15px;
+      line-height:1.6;
+      max-width:52ch;
     }
-    .cta{
-      display:flex; gap:12px; flex-wrap:wrap;
-      margin-top:14px;
+
+    .tag{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.05);
+      color:rgba(255,255,255,.72);
+      font-size:12px;
     }
-    .btn{
-      display:inline-flex; align-items:center; justify-content:center;
-      gap:10px;
-      padding:12px 16px;
-      border-radius:12px;
-      border:1px solid var(--line);
-      background:rgba(255,255,255,.04);
-      color:var(--white);
-      font-weight:600;
+    .tag .pulse{
+      width:8px; height:8px; border-radius:999px;
+      background: rgba(53,182,255,.9);
+      box-shadow: 0 0 16px rgba(53,182,255,.45);
+    }
+
+    /* ONE BUTTON = Logo button */
+    .logoButtonWrap{
+      margin-top:18px;
+      display:flex; align-items:center; gap:14px; flex-wrap:wrap;
+    }
+    .logoButton{
+      width:82px; height:82px;
+      border:none;
+      border-radius: 26px;
       cursor:pointer;
-      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+      position:relative;
+      background: transparent;
+      padding:0;
+      outline:none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* Use your own logo image if available */
+    .logoButton img{
+      width:100%; height:100%;
+      object-fit:cover;
+      border-radius: 26px;
+      display:block;
+
+      filter: saturate(1.1) contrast(1.02);
+      box-shadow: 0 16px 50px rgba(0,0,0,.45);
+      transition: .22s ease;
+    }
+
+    /* fallback if no image */
+    .logoFallback{
+      width:100%; height:100%;
+      border-radius:26px;
+      background: linear-gradient(135deg, var(--grad1), var(--grad2), var(--grad3), var(--grad4));
+      box-shadow: 0 16px 50px rgba(0,0,0,.45);
+      position:relative;
+      overflow:hidden;
+      display:flex; align-items:center; justify-content:center;
+      font-weight:900;
+      letter-spacing:-.03em;
+    }
+    .logoFallback:after{
+      content:"";
+      position:absolute; inset:-35%;
+      background: radial-gradient(circle at 35% 35%, rgba(255,255,255,.22), transparent 60%);
+      transform: rotate(12deg);
+    }
+
+    /* OFF state: darker */
+    .is-off img{filter: saturate(.75) brightness(.72) contrast(1.05);}
+    .is-off .logoFallback{filter: saturate(.8) brightness(.75);}
+
+    /* ON state: glow */
+    .is-on img{
+      filter: saturate(1.25) brightness(1.05);
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,.14) inset,
+        0 16px 55px rgba(0,0,0,.45),
+        0 0 48px rgba(138,77,255,.38),
+        0 0 34px rgba(255,61,187,.28),
+        0 0 28px rgba(53,182,255,.22);
+    }
+    .is-on .logoFallback{
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,.14) inset,
+        0 16px 55px rgba(0,0,0,.45),
+        0 0 48px rgba(138,77,255,.38),
+        0 0 34px rgba(255,61,187,.28),
+        0 0 28px rgba(53,182,255,.22);
+    }
+
+    .status{
+      display:flex; flex-direction:column; gap:6px;
+      min-width:220px;
+    }
+    .status .state{
+      font-size:13px;
+      color:rgba(255,255,255,.82);
+      display:flex; align-items:center; gap:8px;
+    }
+    .status .state .lamp{
+      width:10px; height:10px; border-radius:999px;
+      background: rgba(255,255,255,.18);
+      border:1px solid rgba(255,255,255,.14);
+    }
+    .status .state.on .lamp{
+      background: rgba(53,182,255,.9);
+      box-shadow: 0 0 16px rgba(53,182,255,.45);
+    }
+    .status .hint{
+      font-size:12px;
+      color:rgba(255,255,255,.60);
+      line-height:1.45;
+    }
+
+    .platformRow{
+      margin-top:18px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+      color:rgba(255,255,255,.7);
+      font-size:12px;
+    }
+
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 12px;
+      border-radius: 16px;
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.05);
+      cursor:pointer;
+      transition:.2s;
       user-select:none;
     }
-    .btn:hover{transform: translateY(-1px); background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.22)}
-    .btn.primary{
-      border:none;
-      background:linear-gradient(90deg,var(--accent1),var(--accent2));
-      color:#071018;
+    .pill:hover{background: rgba(255,255,255,.08); transform: translateY(-1px)}
+    .pill .ico{
+      width:18px; height:18px; border-radius:6px;
+      background: rgba(255,255,255,.10);
+      display:flex; align-items:center; justify-content:center;
+      font-size:12px;
+      border:1px solid rgba(255,255,255,.10);
     }
-    .btn.primary:hover{filter:brightness(1.04)}
-    .btn small{font-weight:500; opacity:.85}
+
+    .rightCard h3{margin:0 0 10px 0; font-size:16px}
     .grid{
       display:grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: 1fr 1fr;
       gap:12px;
-      margin-top:18px;
+      margin-top:12px;
     }
-    @media (max-width:520px){
-      .grid{grid-template-columns:1fr}
-    }
+    @media (max-width:900px){ .grid{grid-template-columns:1fr} }
     .mini{
-      padding:14px 14px;
-      border-radius:16px;
-      border:1px solid var(--line);
-      background:rgba(11,16,32,.55);
+      padding:14px;
+      border-radius: 18px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
     }
-    .mini b{display:block; margin-bottom:6px}
-    .mini p{margin:0; color:var(--muted); font-size:13px; line-height:1.65}
+    .mini .k{font-size:12px; color:rgba(255,255,255,.60)}
+    .mini .v{margin-top:6px; font-size:14px; color:rgba(255,255,255,.90); line-height:1.45}
 
-    .side{
-      display:flex; flex-direction:column;
-      height:100%;
-    }
-    .mock{
-      flex:1;
-      position:relative;
-      border-top:1px solid var(--line);
-      background:
-        radial-gradient(500px 250px at 40% 20%, rgba(124,58,237,.35), transparent 60%),
-        radial-gradient(500px 250px at 70% 60%, rgba(34,211,238,.25), transparent 60%),
-        linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+    /* Modal */
+    .modalBackdrop{
+      position:fixed; inset:0;
+      background: rgba(0,0,0,.55);
+      display:none;
+      align-items:center;
+      justify-content:center;
       padding:18px;
+      z-index:100;
     }
-    .panel{
-      border:1px solid rgba(255,255,255,.12);
-      border-radius:16px;
-      background:rgba(6,9,20,.55);
+    .modalBackdrop.open{display:flex}
+    .modal{
+      width:min(720px, 100%);
+      border-radius: 26px;
+      border:1px solid rgba(255,255,255,.14);
+      background: linear-gradient(180deg, rgba(16,12,30,.78), rgba(10,8,18,.78));
+      backdrop-filter: blur(18px);
+      box-shadow: 0 24px 90px rgba(0,0,0,.6);
       overflow:hidden;
     }
-    .panel-h{
+    .modalHead{
       display:flex; align-items:center; justify-content:space-between;
-      padding:10px 12px;
+      padding:16px 18px;
       border-bottom:1px solid rgba(255,255,255,.10);
+    }
+    .modalHead .t{
+      font-size:14px;
+      color:rgba(255,255,255,.86);
+      display:flex; align-items:center; gap:10px;
+    }
+    .xbtn{
+      width:36px; height:36px;
+      border-radius: 12px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      cursor:pointer;
       color:rgba(255,255,255,.85);
+      font-size:16px;
+    }
+    .modalBody{padding:16px 18px 18px}
+    .modalBody p{margin:0 0 12px; color:rgba(255,255,255,.64); font-size:12px; line-height:1.5}
+    .platGrid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:10px;
+    }
+    @media (max-width:560px){ .platGrid{grid-template-columns:1fr 1fr} }
+    .platBtn{
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      border-radius: 18px;
+      padding:12px;
+      display:flex; align-items:center; gap:10px;
+      cursor:pointer;
+      transition:.18s;
+    }
+    .platBtn:hover{background: rgba(255,255,255,.08); transform: translateY(-1px)}
+    .platLogo{
+      width:34px; height:34px;
+      border-radius: 12px;
+      background: rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.12);
+      display:flex; align-items:center; justify-content:center;
+      font-weight:800;
+    }
+    .platMeta{display:flex; flex-direction:column; gap:2px}
+    .platMeta .name{font-size:13px; color:rgba(255,255,255,.9)}
+    .platMeta .sub{font-size:11px; color:rgba(255,255,255,.58)}
+
+    .toast{
+      position:fixed;
+      left:18px; bottom:18px;
+      padding:12px 14px;
+      border-radius: 16px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(16,12,30,.72);
+      backdrop-filter: blur(14px);
+      color:rgba(255,255,255,.86);
       font-size:12px;
+      box-shadow: 0 16px 55px rgba(0,0,0,.55);
+      opacity:0;
+      transform: translateY(10px);
+      transition:.22s;
+      z-index:200;
+      pointer-events:none;
+      max-width:min(520px, 92vw);
     }
-    .bars{display:flex; gap:6px; align-items:center}
-    .bars span{
-      width:10px; height:10px; border-radius:99px; display:inline-block;
-      background:rgba(255,255,255,.12);
-    }
-    .panel-b{
-      padding:14px 12px 16px;
-      display:grid; gap:10px;
-    }
-    .row{
-      display:flex; justify-content:space-between; align-items:center; gap:10px;
-      padding:10px 10px;
-      border:1px solid rgba(255,255,255,.10);
-      border-radius:14px;
-      background:rgba(255,255,255,.03);
-      font-size:13px;
-    }
-    .chip{
-      font-size:12px;
-      padding:6px 10px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.14);
-      background:rgba(255,255,255,.04);
-      color:rgba(255,255,255,.85);
-      white-space:nowrap;
-    }
-    .chip.live{
-      border:none;
-      background:linear-gradient(90deg, rgba(249,115,22,.95), rgba(34,211,238,.95));
-      color:#051018;
-      font-weight:700;
-    }
-    .foot{
-      margin-top:22px;
-      color:rgba(255,255,255,.55);
-      font-size:12px;
-      text-align:center;
-    }
-    .sep{height:1px; background:rgba(255,255,255,.10); margin:18px 0}
+    .toast.show{opacity:1; transform: translateY(0)}
   </style>
 </head>
 
 <body>
   <div class="wrap">
-    <div class="topbar">
+    <!-- NAV -->
+    <div class="nav">
       <div class="brand">
-        <div class="logo" aria-hidden="true"></div>
-        <div>
-          <b>United Lives</b>
-          <div class="tag">From One To Many</div>
-        </div>
+        <span class="dot"></span>
+        <span>UNITED LIVES</span>
       </div>
-      <div class="pill">واجهة عرض — جاهزة لمقابلة منشآت</div>
+
+      <div class="right">
+        <a href="#how">How it works</a>
+        <a href="#features">Features</a>
+        <a href="#about">About</a>
+        <button class="btn" id="openConnectTop">Connect Platforms</button>
+      </div>
     </div>
 
+    <!-- HERO -->
     <div class="hero">
+      <!-- Left -->
       <div class="card">
-        <div class="card-inner">
-          <div class="kicker"><span class="dot"></span> منصة سعودية للبث متعدد المنصات</div>
+        <div class="logoBlock">
+          <div class="logoMark" aria-hidden="true"></div>
+          <span class="tag"><span class="pulse"></span> Saudi-ready. OAuth-friendly. From One To Many.</span>
 
-          <h1>ابث مرة واحدة… وكن حاضرًا في كل مكان.</h1>
-          <p class="sub">
-            United Lives يبني طبقة بنية تحتية (SaaS) توحّد عمليات البث المباشر:
-            بث واحد → توزيع متزامن إلى عدة منصات، مع لوحة تحكم موحدة، وتحليلات أداء، وميزات ذكاء اصطناعي
-            لتحسين التجربة والإنتاجية.
+          <!-- Per your request: ONLY the tagline here -->
+          <h1 class="title">From One To Many</h1>
+
+          <p class="subtitle">
+            Broadcast once, distribute to multiple platforms — with unified control, session status,
+            and a clean workflow that feels friendly and unique.
           </p>
 
-          <div class="cta">
-            <a class="btn primary" href="#contact">احجز عرض سريع</a>
-            <a class="btn" href="#why">ما المشكلة التي نحلّها؟</a>
-            <a class="btn" href="#scope"><small>نطاق MVP</small> نسخة أولية</a>
+          <!-- ONE BUTTON that toggles -->
+          <div class="logoButtonWrap">
+            <button class="logoButton is-off" id="toggleStreamBtn" aria-label="Toggle streaming">
+              <!-- If you upload assets/logo.png this will show automatically -->
+              <img id="logoImg" src="assets/logo.png" alt="United Lives Logo"
+                   onerror="this.remove(); document.getElementById('logoFallback').style.display='flex';" />
+              <div id="logoFallback" class="logoFallback" style="display:none;">UL</div>
+            </button>
+
+            <div class="status">
+              <div class="state" id="streamState"><span class="lamp"></span><span>Stream is OFF</span></div>
+              <div class="hint" id="streamHint">Tap the logo to start. Tap again to stop. (Single-button workflow)</div>
+            </div>
+
+            <button class="btn primary" id="openConnect">Connect Platforms</button>
           </div>
 
-          <div class="grid" id="why">
-            <div class="mini">
-              <b>المشكلة</b>
-              <p>تشتيت المنصات، تعدد لوحات التحكم، صعوبة إدارة التعليقات والبيانات، وتضييع وقت التشغيل.</p>
-            </div>
-            <div class="mini">
-              <b>الحل</b>
-              <p>لوحة واحدة للبث والتوزيع والتحكم والتحليلات — مهيأة لسوق الخليج.</p>
-            </div>
-            <div class="mini">
-              <b>القيمة</b>
-              <p>اختصار وقت التشغيل، تقليل التعقيد، تحسين جودة الإنتاج، ورفع كفاءة التواجد الرقمي.</p>
-            </div>
-            <div class="mini">
-              <b>النموذج</b>
-              <p>اشتراكات SaaS لفئات: صناع محتوى، شركات، وجهات/مؤسسات.</p>
-            </div>
+          <div class="platformRow">
+            <div class="pill" id="openConnectPill"><span class="ico">⚡</span> Quick connect</div>
+            <div class="pill"><span class="ico">🔒</span> No passwords stored</div>
+            <div class="pill"><span class="ico">🧩</span> Add/remove anytime</div>
           </div>
-
-          <div class="sep"></div>
-
-          <div class="grid" id="scope">
-            <div class="mini">
-              <b>نطاق MVP (نسخة أولية)</b>
-              <p>تسجيل/دخول + ربط حسابات + صفحة بث + توزيع متعدد + إحصاءات أساسية + صفحة إعدادات.</p>
-            </div>
-            <div class="mini">
-              <b>مؤشرات عرض لمنشآت</b>
-              <p>صفحة تعريف + واجهة شكلية (UI) + خارطة طريق + خطة تمويل/تطوير MVP.</p>
-            </div>
-          </div>
-
-          <div class="sep"></div>
-
-          <div class="mini" id="contact">
-            <b>تواصل (مؤقت)</b>
-            <p>
-              البريد: <span dir="ltr">unitedlives.sa@gmail.com</span><br/>
-              يمكن استبداله لاحقًا ببريد الدومين بعد تفعيل خدمة البريد.
-            </p>
-          </div>
-
         </div>
       </div>
 
-      <div class="card side">
-        <div class="card-inner">
-          <div class="kicker"><span class="dot"></span> Preview — لوحة تحكم شكلية</div>
-          <p class="sub" style="margin-top:10px">
-            هذا مجرد تصور واجهة (UI) للعرض، وليس نظام بث فعلي.
-          </p>
+      <!-- Right -->
+      <div class="card rightCard">
+        <h3>Control at a glance</h3>
+        <div class="grid">
+          <div class="mini">
+            <div class="k">Session</div>
+            <div class="v" id="sessionTimer">00:00:00</div>
+          </div>
+          <div class="mini">
+            <div class="k">Status</div>
+            <div class="v" id="statusChip">Idle</div>
+          </div>
+          <div class="mini">
+            <div class="k">Platforms connected</div>
+            <div class="v" id="connectedCount">0</div>
+          </div>
+          <div class="mini">
+            <div class="k">Next step</div>
+            <div class="v">Connect platforms → then tap logo to go live.</div>
+          </div>
         </div>
 
-        <div class="mock">
-          <div class="panel">
-            <div class="panel-h">
-              <div class="bars"><span></span><span></span><span></span></div>
-              <div>United Lives Console</div>
-              <div class="chip live">LIVE</div>
-            </div>
-            <div class="panel-b">
-              <div class="row">
-                <div>Stream Source</div>
-                <div class="chip">RTMP / Studio</div>
-              </div>
-              <div class="row">
-                <div>Destinations</div>
-                <div class="chip">3 منصات</div>
-              </div>
-              <div class="row">
-                <div>Unified Chat</div>
-                <div class="chip">Enabled</div>
-              </div>
-              <div class="row">
-                <div>Analytics</div>
-                <div class="chip">Realtime</div>
-              </div>
-              <div class="row">
-                <div>AI Tools</div>
-                <div class="chip">Translation</div>
-              </div>
-            </div>
+        <div style="margin-top:14px; border-top:1px solid rgba(255,255,255,.10); padding-top:14px;">
+          <div class="k" style="font-size:12px; color:rgba(255,255,255,.62);">Notes</div>
+          <div class="v" style="margin-top:6px; font-size:13px; color:rgba(255,255,255,.82); line-height:1.55;">
+            This is just the landing concept + interaction. Later we can connect it to real OAuth flows for YouTube/TikTok/X/etc.
           </div>
-          <div class="foot">© <span dir="ltr">United Lives</span> — Landing Page</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Anchors -->
+    <div style="height:26px"></div>
+    <div class="card" id="how">
+      <h3 style="margin:0 0 10px 0;">How it works</h3>
+      <p style="margin:0; color:rgba(255,255,255,.70); line-height:1.65; font-size:13px;">
+        1) Connect platforms (OAuth) → 2) Tap the logo button to start streaming → 3) Unified visibility and controls.
+      </p>
+    </div>
+
+    <div style="height:14px"></div>
+    <div class="card" id="features">
+      <h3 style="margin:0 0 10px 0;">Features</h3>
+      <p style="margin:0; color:rgba(255,255,255,.70); line-height:1.65; font-size:13px;">
+        Multi-platform distribution • Central control • Analytics • Future AI optimization layer.
+      </p>
+    </div>
+
+    <div style="height:14px"></div>
+    <div class="card" id="about">
+      <h3 style="margin:0 0 10px 0;">About</h3>
+      <p style="margin:0; color:rgba(255,255,255,.70); line-height:1.65; font-size:13px;">
+        United Lives is building a unified infrastructure layer for live broadcasting across platforms — From One To Many.
+      </p>
+    </div>
+  </div>
+
+  <!-- CONNECT MODAL -->
+  <div class="modalBackdrop" id="modalBackdrop" role="dialog" aria-modal="true" aria-label="Connect Platforms">
+    <div class="modal">
+      <div class="modalHead">
+        <div class="t">Connect Platforms</div>
+        <button class="xbtn" id="closeModal" aria-label="Close">✕</button>
+      </div>
+      <div class="modalBody">
+        <p>Pick platforms to connect (mock). Later we replace this with real OAuth redirects.</p>
+
+        <div class="platGrid" id="platGrid">
+          <!-- items injected by JS -->
         </div>
       </div>
     </div>
   </div>
+
+  <div class="toast" id="toast">Saved</div>
+
+  <script>
+    // Platforms (you can add/remove later)
+    const platforms = [
+      { key:'youtube',  name:'YouTube',  sub:'Live + RTMP',  badge:'▶' },
+      { key:'tiktok',   name:'TikTok',   sub:'Go Live',      badge:'♪' },
+      { key:'x',        name:'X',        sub:'Live',         badge:'X' },
+      { key:'facebook', name:'Facebook', sub:'Live',         badge:'f' },
+      { key:'twitch',   name:'Twitch',   sub:'Stream',       badge:'⌁' },
+      { key:'linkedin', name:'LinkedIn', sub:'Events',       badge:'in' }
+    ];
+
+    // UI refs
+    const toggleBtn = document.getElementById('toggleStreamBtn');
+    const streamState = document.getElementById('streamState');
+    const streamHint = document.getElementById('streamHint');
+    const sessionTimer = document.getElementById('sessionTimer');
+    const statusChip = document.getElementById('statusChip');
+    const connectedCount = document.getElementById('connectedCount');
+
+    const modalBackdrop = document.getElementById('modalBackdrop');
+    const openConnect = document.getElementById('openConnect');
+    const openConnectTop = document.getElementById('openConnectTop');
+    const openConnectPill = document.getElementById('openConnectPill');
+    const closeModal = document.getElementById('closeModal');
+    const platGrid = document.getElementById('platGrid');
+
+    const toast = document.getElementById('toast');
+
+    // state
+    let streaming = false;
+    let t0 = null;
+    let timerInterval = null;
+    const connected = new Set(); // mock connected platforms
+
+    function showToast(msg){
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(()=>toast.classList.remove('show'), 1400);
+    }
+
+    function pad(n){ return String(n).padStart(2,'0'); }
+    function updateTimer(){
+      if(!t0){ sessionTimer.textContent = "00:00:00"; return; }
+      const ms = Date.now() - t0;
+      const s = Math.floor(ms/1000);
+      const hh = Math.floor(s/3600);
+      const mm = Math.floor((s%3600)/60);
+      const ss = s%60;
+      sessionTimer.textContent = `${pad(hh)}:${pad(mm)}:${pad(ss)}`;
+    }
+
+    function setStreaming(on){
+      streaming = on;
+
+      if(on){
+        toggleBtn.classList.remove('is-off');
+        toggleBtn.classList.add('is-on');
+        streamState.classList.add('on');
+        streamState.innerHTML = '<span class="lamp"></span><span>Stream is ON</span>';
+        streamHint.textContent = 'You are LIVE. Tap the logo again to stop.';
+        statusChip.textContent = 'Live';
+        t0 = Date.now();
+        updateTimer();
+        timerInterval = setInterval(updateTimer, 1000);
+        showToast('Streaming started');
+      }else{
+        toggleBtn.classList.remove('is-on');
+        toggleBtn.classList.add('is-off');
+        streamState.classList.remove('on');
+        streamState.innerHTML = '<span class="lamp"></span><span>Stream is OFF</span>';
+        streamHint.textContent = 'Tap the logo to start. Tap again to stop. (Single-button workflow)';
+        statusChip.textContent = 'Idle';
+        t0 = null;
+        clearInterval(timerInterval);
+        timerInterval = null;
+        updateTimer();
+        showToast('Streaming stopped');
+      }
+    }
+
+    toggleBtn.addEventListener('click', ()=>{
+      // Optional: require at least one platform connected
+      if(!streaming && connected.size === 0){
+        showToast('Connect a platform first');
+        openModal();
+        return;
+      }
+      setStreaming(!streaming);
+    });
+
+    function openModal(){ modalBackdrop.classList.add('open'); }
+    function closeModalFn(){ modalBackdrop.classList.remove('open'); }
+
+    [openConnect, openConnectTop, openConnectPill].forEach(el=>{
+      el.addEventListener('click', openModal);
+    });
+    closeModal.addEventListener('click', closeModalFn);
+    modalBackdrop.addEventListener('click', (e)=>{
+      if(e.target === modalBackdrop) closeModalFn();
+    });
+
+    function renderPlatforms(){
+      platGrid.innerHTML = '';
+      platforms.forEach(p=>{
+        const isConnected = connected.has(p.key);
+        const el = document.createElement('div');
+        el.className = 'platBtn';
+        el.innerHTML = `
+          <div class="platLogo">${p.badge}</div>
+          <div class="platMeta">
+            <div class="name">${p.name} ${isConnected ? '✓' : ''}</div>
+            <div class="sub">${isConnected ? 'Connected' : p.sub}</div>
+          </div>
+        `;
+        el.addEventListener('click', ()=>{
+          if(connected.has(p.key)){
+            connected.delete(p.key);
+            showToast(`${p.name} disconnected`);
+          }else{
+            connected.add(p.key);
+            showToast(`${p.name} connected`);
+          }
+          connectedCount.textContent = connected.size;
+          renderPlatforms();
+        });
+        platGrid.appendChild(el);
+      });
+      connectedCount.textContent = connected.size;
+    }
+
+    renderPlatforms();
+    updateTimer();
+    setStreaming(false);
+  </script>
 </body>
 </html>
