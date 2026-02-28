@@ -1,211 +1,843 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>United Lives | From One To Many</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>United Lives — From One To Many</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-<style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
+  <style>
+    :root{
+      --bg0:#070614;
+      --bg1:#140a2a;
+      --glass: rgba(255,255,255,.08);
+      --glass2: rgba(255,255,255,.06);
+      --stroke: rgba(255,255,255,.14);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.70);
+      --muted2: rgba(255,255,255,.55);
 
-body{
-font-family: 'Inter', sans-serif;
-color:white;
-background:
-radial-gradient(circle at 20% 30%, #7a2bff 0%, transparent 40%),
-radial-gradient(circle at 80% 70%, #ff4fbf 0%, transparent 40%),
-radial-gradient(circle at 60% 20%, #ff7a3d 0%, transparent 40%),
-#0b0a12;
-min-height:100vh;
-overflow-x:hidden;
-}
+      --pink:#ff4fb8;
+      --violet:#7a2bff;
+      --indigo:#3c2eff;
+      --cyan:#39d5ff;
+      --orange:#ff7a3d;
 
-nav{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:30px 8%;
-backdrop-filter:blur(20px);
-background:rgba(255,255,255,0.05);
-border-bottom:1px solid rgba(255,255,255,0.1);
-}
+      --shadow: 0 20px 70px rgba(0,0,0,.55);
+      --blur: blur(16px);
+      --radius: 22px;
+    }
 
-.logo{
-font-weight:600;
-letter-spacing:2px;
-}
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--text);
+      background: radial-gradient(1200px 800px at 80% 20%, rgba(255,122,61,.28), transparent 60%),
+                  radial-gradient(900px 700px at 20% 25%, rgba(122,43,255,.30), transparent 60%),
+                  radial-gradient(700px 600px at 35% 75%, rgba(57,213,255,.22), transparent 60%),
+                  radial-gradient(900px 900px at 75% 80%, rgba(255,79,184,.22), transparent 60%),
+                  linear-gradient(180deg, var(--bg0), var(--bg1));
+      overflow-x:hidden;
+    }
 
-.hero{
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-text-align:center;
-padding:120px 20px;
-}
+    /* subtle stars */
+    body::before{
+      content:"";
+      position:fixed; inset:0;
+      background:
+        radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,.25), transparent 45%),
+        radial-gradient(1px 1px at 35% 30%, rgba(255,255,255,.22), transparent 45%),
+        radial-gradient(1px 1px at 60% 15%, rgba(255,255,255,.18), transparent 45%),
+        radial-gradient(1px 1px at 80% 40%, rgba(255,255,255,.20), transparent 45%),
+        radial-gradient(1px 1px at 25% 70%, rgba(255,255,255,.20), transparent 45%),
+        radial-gradient(1px 1px at 55% 78%, rgba(255,255,255,.18), transparent 45%),
+        radial-gradient(1px 1px at 85% 72%, rgba(255,255,255,.16), transparent 45%);
+      opacity:.9;
+      pointer-events:none;
+      mix-blend-mode:screen;
+    }
 
-.logo-icon{
-width:160px;
-height:160px;
-border-radius:40px;
-background:linear-gradient(135deg,#3c2eff,#d52fff,#ff4fbb,#ff7a3d);
-display:flex;
-align-items:center;
-justify-content:center;
-box-shadow:
-0 0 60px rgba(213,47,255,0.5),
-0 0 120px rgba(255,79,187,0.4);
-margin-bottom:40px;
-position:relative;
-}
+    .container{
+      width:min(1180px, 92vw);
+      margin:0 auto;
+      padding:26px 0 60px;
+    }
 
-.logo-icon::after{
-content:"";
-width:60px;
-height:60px;
-border-radius:50%;
-background:#0b0a12;
-box-shadow:0 0 40px rgba(0,0,0,0.7) inset;
-}
+    /* NAV */
+    .nav{
+      position:sticky; top:0;
+      z-index:50;
+      padding:14px 0;
+      backdrop-filter: var(--blur);
+    }
 
-h1{
-font-size:56px;
-font-weight:700;
-margin-bottom:20px;
-}
+    .navbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
+      border:1px solid var(--stroke);
+      box-shadow: var(--shadow);
+      border-radius: 999px;
+      padding:12px 14px;
+    }
 
-p{
-font-size:20px;
-max-width:700px;
-opacity:0.8;
-margin-bottom:40px;
-line-height:1.6;
-}
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding-left:4px;
+      min-width:210px;
+    }
+    .brandMark{
+      width:34px; height:34px;
+      border-radius:12px;
+      display:grid;
+      place-items:center;
+      overflow:hidden;
+      background: rgba(0,0,0,.18);
+      border:1px solid rgba(255,255,255,.12);
+    }
+    .brandMark img{
+      width:100%; height:100%;
+      object-fit:cover;
+      transform: scale(1.02);
+    }
+    .brandName{
+      font-weight:700;
+      letter-spacing:.18em;
+      font-size:13px;
+      opacity:.95;
+    }
 
-.buttons{
-display:flex;
-gap:20px;
-flex-wrap:wrap;
-justify-content:center;
-}
+    .navlinks{
+      display:flex;
+      align-items:center;
+      gap:18px;
+      justify-content:center;
+      flex:1;
+    }
+    .navlinks a{
+      color:var(--muted);
+      text-decoration:none;
+      font-size:13px;
+      font-weight:600;
+      padding:10px 12px;
+      border-radius:999px;
+      transition:.18s ease;
+    }
+    .navlinks a:hover{
+      color:var(--text);
+      background: rgba(255,255,255,.08);
+    }
+    .navlinks a.active{
+      color:var(--text);
+      background: rgba(255,255,255,.10);
+      border:1px solid rgba(255,255,255,.12);
+    }
 
-.btn-primary{
-padding:14px 30px;
-border-radius:30px;
-background:linear-gradient(135deg,#d52fff,#ff7a3d);
-color:white;
-border:none;
-font-weight:600;
-cursor:pointer;
-box-shadow:0 0 30px rgba(255,79,187,0.6);
-}
+    .navright{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      min-width:210px;
+      justify-content:flex-end;
+    }
 
-.btn-secondary{
-padding:14px 30px;
-border-radius:30px;
-background:rgba(255,255,255,0.08);
-border:1px solid rgba(255,255,255,0.2);
-color:white;
-backdrop-filter:blur(10px);
-cursor:pointer;
-}
+    .btn{
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.08);
+      color:var(--text);
+      padding:10px 14px;
+      border-radius:999px;
+      font-weight:700;
+      font-size:13px;
+      cursor:pointer;
+      transition:.18s ease;
+      backdrop-filter: var(--blur);
+    }
+    .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.10); }
+    .btn.primary{
+      border:none;
+      background: linear-gradient(90deg, rgba(255,79,184,.90), rgba(122,43,255,.88), rgba(57,213,255,.82));
+      box-shadow: 0 18px 60px rgba(122,43,255,.35);
+    }
 
-.section{
-padding:100px 10%;
-text-align:center;
-}
+    /* HERO */
+    .hero{
+      padding:34px 0 10px;
+      display:grid;
+      grid-template-columns: 1.25fr .95fr;
+      gap:22px;
+      align-items:stretch;
+    }
 
-.section h2{
-font-size:36px;
-margin-bottom:30px;
-}
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.05));
+      border:1px solid var(--stroke);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: var(--blur);
+    }
 
-.features{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:30px;
-margin-top:40px;
-}
+    .heroLeft{
+      padding:34px 30px;
+      position:relative;
+      overflow:hidden;
+    }
 
-.card{
-background:rgba(255,255,255,0.05);
-border:1px solid rgba(255,255,255,0.1);
-border-radius:20px;
-padding:30px;
-backdrop-filter:blur(15px);
-transition:0.3s;
-}
+    .heroLeft::after{
+      content:"";
+      position:absolute; inset:-120px -120px auto auto;
+      width:420px; height:420px;
+      background: radial-gradient(circle at 30% 30%, rgba(255,79,184,.35), transparent 60%),
+                  radial-gradient(circle at 70% 50%, rgba(57,213,255,.28), transparent 60%),
+                  radial-gradient(circle at 50% 80%, rgba(255,122,61,.20), transparent 60%);
+      filter: blur(18px);
+      opacity:.9;
+      pointer-events:none;
+    }
 
-.card:hover{
-transform:translateY(-10px);
-box-shadow:0 0 40px rgba(255,79,187,0.3);
-}
+    .heroTop{
+      display:flex;
+      align-items:center;
+      gap:18px;
+      margin-bottom:18px;
+      position:relative;
+      z-index:2;
+    }
 
-footer{
-padding:40px;
-text-align:center;
-opacity:0.6;
-}
+    .heroLogo{
+      width:76px; height:76px;
+      border-radius:26px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.18);
+      box-shadow: 0 22px 70px rgba(0,0,0,.45);
+    }
+    .heroLogo img{ width:100%; height:100%; object-fit:cover; }
 
-@media(max-width:768px){
-h1{
-font-size:40px;
-}
-.logo-icon{
-width:120px;
-height:120px;
-border-radius:30px;
-}
-}
-</style>
+    .heroTitles h1{
+      margin:0;
+      font-size:44px;
+      letter-spacing:-.03em;
+      line-height:1.05;
+    }
+    .heroTitles .tag{
+      margin-top:10px;
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+      padding:8px 12px;
+      border-radius:999px;
+      background: rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.12);
+      color:var(--muted);
+      font-weight:600;
+      font-size:13px;
+    }
+    .dot{
+      width:10px; height:10px;
+      border-radius:999px;
+      background: linear-gradient(180deg, var(--cyan), var(--violet));
+      box-shadow: 0 0 18px rgba(57,213,255,.55);
+    }
+
+    .heroCopy{
+      margin:18px 0 0;
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.75;
+      max-width:62ch;
+      position:relative;
+      z-index:2;
+    }
+
+    .ctaRow{
+      margin-top:22px;
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      position:relative;
+      z-index:2;
+    }
+
+    /* RIGHT PANEL (decor dashboard preview) */
+    .heroRight{
+      padding:20px;
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+    }
+
+    .miniHeader{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border-radius:999px;
+      background: rgba(255,255,255,.07);
+      border:1px solid rgba(255,255,255,.10);
+      color:var(--muted);
+      font-weight:700;
+      font-size:12px;
+    }
+    .statusDot{
+      width:8px; height:8px; border-radius:999px;
+      background: rgba(255,255,255,.30);
+      box-shadow:none;
+    }
+    .statusDot.live{
+      background: var(--orange);
+      box-shadow: 0 0 18px rgba(255,122,61,.55);
+    }
+
+    /* ONE BUTTON = LOGO (start/stop) */
+    .logoButtonWrap{
+      margin-top:6px;
+      display:flex;
+      gap:14px;
+      align-items:center;
+    }
+
+    .logoBtn{
+      width:86px; height:86px;
+      border-radius:28px;
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(0,0,0,.18);
+      overflow:hidden;
+      cursor:pointer;
+      position:relative;
+      display:grid;
+      place-items:center;
+      transition: .18s ease;
+      box-shadow: 0 18px 65px rgba(0,0,0,.45);
+      outline:none;
+    }
+    .logoBtn img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      transform: scale(1.04);
+      opacity:.98;
+    }
+
+    .logoBtn::after{
+      content:"";
+      position:absolute; inset:-12px;
+      border-radius:34px;
+      background: radial-gradient(circle at 35% 35%, rgba(57,213,255,.35), transparent 55%),
+                  radial-gradient(circle at 65% 50%, rgba(122,43,255,.40), transparent 58%),
+                  radial-gradient(circle at 55% 75%, rgba(255,79,184,.30), transparent 60%);
+      filter: blur(18px);
+      opacity:0;
+      transition:.22s ease;
+      pointer-events:none;
+    }
+
+    .logoBtn.isOn{
+      transform: translateY(-1px);
+      border:1px solid rgba(255,255,255,.22);
+    }
+    .logoBtn.isOn::after{
+      opacity:1; /* glow ON */
+    }
+
+    .logoBtn.isOff{
+      filter: saturate(.65) brightness(.85);
+    }
+
+    .hintText{
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+    }
+    .hintText .label{
+      font-weight:800;
+      font-size:12px;
+      color:var(--muted);
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+    .hintText .value{
+      font-size:14px;
+      color:var(--text);
+      font-weight:700;
+    }
+    .hintText .sub{
+      font-size:12px;
+      color:var(--muted2);
+      line-height:1.55;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+      margin-top:10px;
+    }
+    .tile{
+      padding:12px;
+      border-radius:16px;
+      background: rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.10);
+      min-height:84px;
+    }
+    .tileTitle{
+      font-weight:800;
+      font-size:12px;
+      color:var(--muted);
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      margin-bottom:8px;
+    }
+    .tileValue{
+      font-size:22px;
+      font-weight:800;
+      letter-spacing:-.02em;
+    }
+    .tileSub{
+      margin-top:6px;
+      font-size:12px;
+      color:var(--muted2);
+    }
+
+    /* SECTION */
+    .section{
+      margin-top:20px;
+      padding:22px;
+    }
+    .section h2{
+      margin:0 0 8px;
+      font-size:20px;
+      letter-spacing:-.02em;
+    }
+    .section p{
+      margin:0;
+      color:var(--muted);
+      line-height:1.75;
+      font-size:14px;
+      max-width:95ch;
+    }
+
+    /* CONNECT MODAL */
+    .overlay{
+      position:fixed; inset:0;
+      background: rgba(0,0,0,.55);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:18px;
+      z-index:80;
+    }
+    .overlay.open{ display:flex; }
+
+    .modal{
+      width:min(720px, 92vw);
+      border-radius: 24px;
+      overflow:hidden;
+      background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.06));
+      border:1px solid rgba(255,255,255,.16);
+      box-shadow: 0 30px 120px rgba(0,0,0,.70);
+      backdrop-filter: var(--blur);
+    }
+    .modalHead{
+      padding:16px 18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      border-bottom:1px solid rgba(255,255,255,.10);
+    }
+    .modalHead .title{
+      font-weight:900;
+      letter-spacing:-.02em;
+    }
+    .close{
+      border:none;
+      background: rgba(255,255,255,.10);
+      color:var(--text);
+      width:38px; height:38px;
+      border-radius:12px;
+      cursor:pointer;
+    }
+    .modalBody{
+      padding:16px 18px 18px;
+      display:grid;
+      gap:10px;
+    }
+    .oauthBtn{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:14px 14px;
+      border-radius:16px;
+      background: rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.12);
+      cursor:pointer;
+      transition:.18s ease;
+    }
+    .oauthBtn:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.10);
+    }
+    .oauthLeft{
+      display:flex; align-items:center; gap:12px;
+      font-weight:800;
+    }
+    .oauthIcon{
+      width:34px; height:34px;
+      border-radius:12px;
+      display:grid;
+      place-items:center;
+      background: rgba(0,0,0,.18);
+      border:1px solid rgba(255,255,255,.12);
+      font-weight:900;
+      color:var(--muted);
+    }
+    .oauthNote{
+      font-size:12px; color:var(--muted2); font-weight:700;
+    }
+
+    /* responsive */
+    @media (max-width: 980px){
+      .hero{ grid-template-columns:1fr; }
+      .brand{ min-width:auto; }
+      .navright{ min-width:auto; }
+    }
+    @media (max-width: 620px){
+      .heroTitles h1{ font-size:36px; }
+      .navlinks{ display:none; } /* keep clean on mobile */
+      .navbar{ border-radius: 22px; }
+    }
+  </style>
 </head>
 
 <body>
+  <div class="nav">
+    <div class="container">
+      <div class="navbar">
+        <div class="brand">
+          <div class="brandMark">
+            <img src="logo.png" alt="United Lives Logo">
+          </div>
+          <div class="brandName">UNITED LIVES</div>
+        </div>
 
-<nav>
-<div class="logo">UNITED LIVES</div>
-<div>From One To Many</div>
-</nav>
+        <div class="navlinks">
+          <a class="active" href="#home" data-tab="home">Home</a>
+          <a href="#about" data-tab="about">About</a>
+          <a href="#settings" data-tab="settings">Settings</a>
+        </div>
 
-<section class="hero">
-<div class="logo-icon"></div>
-<h1>Broadcast Once. Reach Everywhere.</h1>
-<p>
-United Lives is a unified live distribution layer that enables creators and organizations to broadcast once and distribute simultaneously across multiple platforms.
-</p>
-<div class="buttons">
-<button class="btn-primary">Start Early Access</button>
-<button class="btn-secondary">View Platform Vision</button>
-</div>
-</section>
+        <div class="navright">
+          <button class="btn" id="signInBtn">Sign in</button>
+          <button class="btn primary" id="connectBtnTop">Connect Platforms</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
-<section class="section">
-<h2>The Live Streaming Ecosystem is Fragmented.</h2>
-<div class="features">
-<div class="card">
-<h3>Multiple Platforms</h3>
-<p>Go live everywhere from a single control layer.</p>
-</div>
-<div class="card">
-<h3>Disconnected Analytics</h3>
-<p>Unified visibility across all platforms in one dashboard.</p>
-</div>
-<div class="card">
-<h3>Operational Complexity</h3>
-<p>Simplify multi-stream workflows into one system.</p>
-</div>
-</div>
-</section>
+  <main class="container" id="home">
+    <section class="hero">
+      <!-- LEFT -->
+      <div class="card heroLeft">
+        <div class="heroTop">
+          <div class="heroLogo">
+            <img src="logo.png" alt="United Lives Logo">
+          </div>
+          <div class="heroTitles">
+            <h1>From One To Many</h1>
+            <div class="tag">
+              <span class="dot"></span>
+              Unified control • OAuth friendly • Investor-ready UI
+            </div>
+          </div>
+        </div>
 
-<footer>
-© 2026 United Lives — From One To Many
-</footer>
+        <p class="heroCopy">
+          United Lives is a unified distribution layer for live streaming.
+          The goal of this page is to look “production-ready” for investors — a clean vision of the product UI, workflow, and brand.
+        </p>
 
+        <div class="ctaRow">
+          <button class="btn primary" id="connectBtn">Connect Platforms</button>
+          <button class="btn" id="viewAboutBtn">About United Lives</button>
+        </div>
+
+        <div style="height:14px;"></div>
+
+        <div class="section card" style="margin-top:18px; padding:18px;">
+          <h2 style="margin:0 0 8px;">Key idea</h2>
+          <p style="margin:0; color:var(--muted);">
+            A single workflow: you connect platforms once (OAuth), then you control everything from one place.
+            And the most iconic action is a <b>single logo-button</b> that starts/stops the stream.
+          </p>
+        </div>
+      </div>
+
+      <!-- RIGHT -->
+      <div class="card heroRight">
+        <div class="miniHeader">
+          <div class="pill">
+            <span class="statusDot" id="liveDot"></span>
+            <span id="liveLabel">Stream is OFF</span>
+          </div>
+          <div class="pill">Session • <span id="timer">00:00</span></div>
+        </div>
+
+        <div class="logoButtonWrap">
+          <button class="logoBtn isOff" id="logoBtn" aria-label="Start/Stop Stream">
+            <img src="logo.png" alt="Start Stop">
+          </button>
+
+          <div class="hintText">
+            <div class="label">Single-button workflow</div>
+            <div class="value" id="btnHint">Tap the logo to start.</div>
+            <div class="sub">
+              When ON: it glows (active). When OFF: it goes dark (inactive).
+            </div>
+          </div>
+        </div>
+
+        <div class="grid">
+          <div class="tile">
+            <div class="tileTitle">Platform Reach</div>
+            <div class="tileValue" id="reach">1,050</div>
+            <div class="tileSub">Live viewers (mock)</div>
+          </div>
+          <div class="tile">
+            <div class="tileTitle">Engagement</div>
+            <div class="tileValue" id="eng">12.5%</div>
+            <div class="tileSub">Chat + reactions (mock)</div>
+          </div>
+        </div>
+
+        <div class="tile" style="min-height:auto;">
+          <div class="tileTitle">Platforms</div>
+          <div class="tileSub" style="margin-top:0;">
+            You can replace these with real icons later. For now it shows the concept clearly.
+          </div>
+
+          <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px;">
+            <span class="pill">YouTube</span>
+            <span class="pill">TikTok</span>
+            <span class="pill">Twitch</span>
+            <span class="pill">X</span>
+            <span class="pill">Facebook</span>
+            <span class="pill">+ Others</span>
+          </div>
+
+          <div style="display:flex; gap:12px; margin-top:14px; flex-wrap:wrap;">
+            <button class="btn primary" id="connectBtnMini">Connect Platforms</button>
+            <button class="btn" id="fakeDashboardBtn">Open Dashboard (Demo)</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card section" id="about" style="margin-top:22px;">
+      <h2>About United Lives</h2>
+      <p>
+        The live streaming ecosystem is fragmented. Creators and organizations must go live separately on multiple platforms,
+        monitor chats in different places, and track analytics across disconnected dashboards.
+        <br><br>
+        United Lives solves this by providing one centralized interface: connect platforms once (OAuth), then control streaming,
+        visibility, and performance monitoring from one place — <b>From One To Many</b>.
+      </p>
+    </section>
+
+    <section class="card section" id="settings" style="margin-top:14px;">
+      <h2>Settings (Demo)</h2>
+      <p>
+        This is a UI-only investor demo. Later you can connect real settings such as:
+        login methods, email change, password reset, session controls, and platform permissions.
+      </p>
+
+      <div class="grid" style="margin-top:14px;">
+        <div class="tile">
+          <div class="tileTitle">Login method</div>
+          <div class="tileSub">OAuth (recommended) • Email/password (optional)</div>
+        </div>
+        <div class="tile">
+          <div class="tileTitle">Security</div>
+          <div class="tileSub">No passwords stored for platforms • revoke anytime</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- CONNECT MODAL -->
+  <div class="overlay" id="overlay">
+    <div class="modal">
+      <div class="modalHead">
+        <div class="title">Connect Your Platforms</div>
+        <button class="close" id="closeModal">✕</button>
+      </div>
+      <div class="modalBody">
+        <div class="oauthBtn">
+          <div class="oauthLeft">
+            <div class="oauthIcon">G</div>
+            Continue with Google
+          </div>
+          <div class="oauthNote">OAuth secure</div>
+        </div>
+
+        <div class="oauthBtn">
+          <div class="oauthLeft">
+            <div class="oauthIcon">YT</div>
+            Connect YouTube
+          </div>
+          <div class="oauthNote">No passwords stored</div>
+        </div>
+
+        <div class="oauthBtn">
+          <div class="oauthLeft">
+            <div class="oauthIcon">TT</div>
+            Connect TikTok
+          </div>
+          <div class="oauthNote">Disconnect anytime</div>
+        </div>
+
+        <div class="oauthBtn">
+          <div class="oauthLeft">
+            <div class="oauthIcon">Tw</div>
+            Connect Twitch
+          </div>
+          <div class="oauthNote">Permissions-based</div>
+        </div>
+
+        <div class="oauthBtn">
+          <div class="oauthLeft">
+            <div class="oauthIcon">X</div>
+            Connect X
+          </div>
+          <div class="oauthNote">OAuth secure</div>
+        </div>
+
+        <div class="oauthBtn">
+          <div class="oauthLeft">
+            <div class="oauthIcon">f</div>
+            Connect Facebook
+          </div>
+          <div class="oauthNote">OAuth secure</div>
+        </div>
+
+        <div style="margin-top:6px; font-size:12px; color:var(--muted2); line-height:1.6;">
+          Investor note: This is a front-end demo. The real OAuth flow + API connections will be implemented in the MVP build.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Modal
+    const overlay = document.getElementById('overlay');
+    const openButtons = [
+      document.getElementById('connectBtn'),
+      document.getElementById('connectBtnTop'),
+      document.getElementById('connectBtnMini')
+    ].filter(Boolean);
+
+    const closeModal = document.getElementById('closeModal');
+
+    openButtons.forEach(btn => btn.addEventListener('click', () => overlay.classList.add('open')));
+    closeModal.addEventListener('click', () => overlay.classList.remove('open'));
+    overlay.addEventListener('click', (e) => { if(e.target === overlay) overlay.classList.remove('open'); });
+
+    // Smooth scroll buttons
+    document.getElementById('viewAboutBtn').addEventListener('click', () => {
+      document.getElementById('about').scrollIntoView({behavior:'smooth', block:'start'});
+    });
+
+    // Single logo button start/stop + glow
+    const logoBtn = document.getElementById('logoBtn');
+    const liveDot = document.getElementById('liveDot');
+    const liveLabel = document.getElementById('liveLabel');
+    const btnHint = document.getElementById('btnHint');
+    const timerEl = document.getElementById('timer');
+    const reachEl = document.getElementById('reach');
+    const engEl = document.getElementById('eng');
+
+    let isOn = false;
+    let t = 0;
+    let interval = null;
+
+    function pad(n){ return String(n).padStart(2,'0'); }
+
+    function setUI(){
+      if(isOn){
+        logoBtn.classList.add('isOn');
+        logoBtn.classList.remove('isOff');
+        liveDot.classList.add('live');
+        liveLabel.textContent = 'Stream is ON';
+        btnHint.textContent = 'Tap again to stop.';
+      }else{
+        logoBtn.classList.remove('isOn');
+        logoBtn.classList.add('isOff');
+        liveDot.classList.remove('live');
+        liveLabel.textContent = 'Stream is OFF';
+        btnHint.textContent = 'Tap the logo to start.';
+        timerEl.textContent = '00:00';
+      }
+    }
+
+    function start(){
+      isOn = true;
+      setUI();
+      if(interval) clearInterval(interval);
+      t = 0;
+      interval = setInterval(() => {
+        t++;
+        const mm = Math.floor(t/60);
+        const ss = t%60;
+        timerEl.textContent = `${pad(mm)}:${pad(ss)}`;
+
+        // mock numbers to feel alive (for investors)
+        const baseReach = 1050 + Math.floor(Math.sin(t/7)*35) + Math.floor(Math.random()*8);
+        reachEl.textContent = baseReach.toLocaleString('en-US');
+
+        const baseEng = 12.5 + (Math.sin(t/9)*0.8);
+        engEl.textContent = `${baseEng.toFixed(1)}%`;
+      }, 1000);
+    }
+
+    function stop(){
+      isOn = false;
+      setUI();
+      if(interval) clearInterval(interval);
+      interval = null;
+    }
+
+    logoBtn.addEventListener('click', () => {
+      isOn ? stop() : start();
+    });
+
+    setUI();
+
+    // optional demo button
+    document.getElementById('fakeDashboardBtn').addEventListener('click', () => {
+      alert('Demo only: This is a UI concept page for investors.');
+    });
+
+    // nav active states (simple)
+    const navLinks = document.querySelectorAll('.navlinks a');
+    navLinks.forEach(a => a.addEventListener('click', () => {
+      navLinks.forEach(x => x.classList.remove('active'));
+      a.classList.add('active');
+    }));
+  </script>
 </body>
 </html>
